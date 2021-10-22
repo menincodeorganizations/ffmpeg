@@ -563,17 +563,18 @@ static const AVFilterPad gltransition_outputs[] = {
   {NULL}
 };
 
-AVFilter ff_vf_gltransition = {
+const AVFilter ff_vf_gltransition = {
   .name          = "gltransition",
   .description   = NULL_IF_CONFIG_SMALL("OpenGL blend transitions"),
   .priv_size     = sizeof(GLTransitionContext),
   .preinit       = gltransition_framesync_preinit,
   .init          = init,
   .uninit        = uninit,
-  .query_formats = query_formats,
   .activate      = activate,
-  .inputs        = gltransition_inputs,
   .outputs       = gltransition_outputs,
+  FILTER_INPUTS(gltransition_inputs),
+  FILTER_OUTPUTS(gltransition_outputs),
+  FILTER_QUERY_FUNC(query_formats),
   .priv_class    = &gltransition_class,
   .flags         = AVFILTER_FLAG_SUPPORT_TIMELINE_GENERIC
 };
